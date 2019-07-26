@@ -2,7 +2,7 @@ import path from "path";
 
 export default {
   mode: "development",
-  devtool: "cheap-source-map",
+  devtool: "inline-source-map",
   entry: [path.resolve(__dirname, "src/index")],
   target: "web",
   output: {
@@ -12,9 +12,9 @@ export default {
   },
   plugins: [],
   module: {
-    rules: [
-      { test: /\.js$/, exclude: /node_modules/, loader: ["babel-loader"] },
-      { test: /\.css$/, use: ["style-loader", "css-loader"] }
+    loaders: [
+      { test: /\.js$/, exclude: /node_modules/, loaders: ["babel"] },
+      { test: /\.css$/, loaders: ["style", "css"] }
     ]
   }
 };
