@@ -19,15 +19,13 @@ getUsers().then(result => {
 
   //Must use array.from to create a real array from DOM collection
   //getElementByClassName only returns an "array-like" object
-  /* eslint-disable no-console */
+
   Array.from(deleteLinks, link => {
     link.onclick = function(event) {
       const element = event.target;
-      console.log(element);
       event.preventDefault();
       deleteUser(element.attributes["data-id"].value);
       const row = element.parentNode.parentNode;
-      console.log(row);
       row.parentNode.removeChild(row);
     };
   });

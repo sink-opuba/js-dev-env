@@ -1,3 +1,13 @@
+<!--
+  **NOTE: ** This a template for index.html.
+  It uses ejs and htmlWebpackPlugin to dynamically generete a different index.html for each environment.
+  htmlWebpackPlugin will dynamically add references to the scripts and styles that it bundles
+  to this file. The generated bundles have hash-bashed filenames,
+  so it's necessary to add the references dynamcally.
+  for more info on ejs, see https://www.ejs.co/.
+  for examples of using it with htmlWebpackPlugin,
+  see https://github.com/jaketrent/html-webpack-template/blob/master/index.ejs
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,6 +15,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS dev Env</title>
+    <!-- if trackJs token is defined with webpack config, code below will be rendered within the html -->
+    <% if (htmlWebpackPlugin.options.trackJSToken) { %>
+    <script
+      src="https://cdn.trackjs.com/agent/v3/latest/t.js"
+      crossorigin
+    ></script>
+    <script>
+      window.TrackJS &&
+        TrackJS.install({
+          token: "<%=htmlWebpackPlugin.options.trackJSToken%>"
+          // for more configuration options, see https://docs.trackjs.com
+        });
+    </script>
+    <% } %>
   </head>
   <body>
     <h1>Users</h1>
@@ -19,5 +43,4 @@
       <tbody id="users"></tbody>
     </table>
   </body>
-  <script src="bundle.js"></script>
 </html>
